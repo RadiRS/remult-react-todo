@@ -21,8 +21,12 @@ function App() {
   }, [hideCompleted])
 
   const handleSaveTask = async (task: Task) => {
-    const savedTask = await taskRepo.save(task)
-    setTasks(tasks.map(t => t === task ? savedTask : t))
+    try {
+      const savedTask = await taskRepo.save(task)
+      setTasks(tasks.map(t => t === task ? savedTask : t))
+    } catch (error: any) {
+      alert(error?.message)
+    }
   }
 
   const handleChange = (values: Partial<Task>) => {
