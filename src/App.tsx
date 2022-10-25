@@ -20,6 +20,24 @@ function App() {
     fetchTasks(hideCompleted).then(setTasks)
   }, [hideCompleted])
 
+  const handleSaveTask = async (task: Task) => {
+    const savedTask = await taskRepo.save(task)
+    setTasks(tasks.map(t => t === task ? savedTask : t))
+  }
+
+  const handleChange = (values: Partial<Task>) => {
+    setTasks(tasks.map(t => t.id === values.id ? { ...t, ...values } : t))
+  }
+
+  const handleAddTask = () => {
+    setTasks([...tasks, new Task()])
+  }
+
+  const handleDeleteTask = async (task: Task) => {
+    await taskRepo.delete(task)
+    setTasks(tasks.filter(t => t.id !== task.id))
+  }
+
   return (
     <div>
       <input
@@ -32,16 +50,25 @@ function App() {
       Hide Completed
       <main>
         <h2>Todo List</h2>
-        {tasks.map(task => (
-          <div key={task.id}>
-            <input type="checkbox"
-              checked={task.completed}
-              onChange={e => console.log(e.target.checked)}
-            />
-            {task.title}
-          </div>
-        ))}
+        {tasks.map(task => {
+          return (
+            <div key={task.id}>
+              <input
+                type="checkbox"
+                checked={task.completed}
+                onChange={e => handleChange({ ...task, completed: e.target.checked })}
+              />
+              <input
+                value={task.title}
+                onChange={e => handleChange({ ...task, title: e.target.value })}
+              />
+              <button onClick={() => handleSaveTask(task)}>Save</button>
+              <button onClick={() => handleDeleteTask(task)}>Delete</button>
+            </div>
+          )
+        })}
       </main>
+      <button onClick={handleAddTask}>Add Task</button>
     </div>
   )
 }
