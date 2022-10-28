@@ -52,10 +52,6 @@ function App() {
 
   return (
     <div>
-      <div>
-        <button onClick={() => handleSetAll(true)}>Set all as completed</button>
-        <button onClick={() => handleSetAll(false)}>Set all as uncompleted</button>
-      </div>
       <input
         type="checkbox"
         checked={hideCompleted}
@@ -68,7 +64,7 @@ function App() {
         <h2>Todo List</h2>
         {tasks.map(task => {
           return (
-            <div key={task.id}>
+            <div key={task.id} >
               <input
                 type="checkbox"
                 checked={task.completed}
@@ -83,9 +79,13 @@ function App() {
             </div>
           )
         })}
-      </main>
-      <button onClick={handleAddTask}>Add Task</button>
-    </div>
+      </main >
+      <div>
+        <button onClick={handleAddTask}>Add Task</button>
+        <button onClick={() => handleSetAll(true)}>Set all as completed</button>
+        <button onClick={() => handleSetAll(false)}>Set all as uncompleted</button>
+      </div>
+    </div >
   )
 }
 

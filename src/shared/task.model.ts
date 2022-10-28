@@ -9,7 +9,11 @@ export class Task {
   id!: string;
 
   @Fields.string({
-    // validate: Validators.required
+    validate: Validators.required
+  })
+  title = '';
+
+  @Fields.string({
     validate: (task) => {
       if (!task.title.length)
         throw Validators.required.defaultMessage
@@ -17,7 +21,7 @@ export class Task {
         throw "Too Short"
     }
   })
-  title = '';
+  description = '';
 
   @Fields.boolean()
   completed = false;
