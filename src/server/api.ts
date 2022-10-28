@@ -1,9 +1,12 @@
 import { remult } from 'remult';
 import { remultExpress } from 'remult/remult-express';
+
+import { TasksController } from '../shared/task.controller';
 import { Task } from '../shared/task.model';
 
 export const api = remultExpress({
   entities: [Task],
+  controllers: [TasksController],
   initApi: async () => {
     const taskRepo = remult.repo(Task);
     if (await taskRepo.count() === 0) {

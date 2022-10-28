@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import { remult } from 'remult'
+
+import { TasksController } from './shared/task.controller';
 import { Task } from './shared/task.model'
 
 const taskRepo = remult.repo(Task);
@@ -42,8 +44,18 @@ function App() {
     setTasks(tasks.filter(t => t.id !== task.id))
   }
 
+  const handleSetAll = async (completed: boolean) => {
+    await TasksController.setAll(completed);
+
+    setTasks(await fetchTasks(hideCompleted))
+  }
+
   return (
     <div>
+      <div>
+        <button onClick={() => handleSetAll(true)}>Set all as completed</button>
+        <button onClick={() => handleSetAll(false)}>Set all as uncompleted</button>
+      </div>
       <input
         type="checkbox"
         checked={hideCompleted}
