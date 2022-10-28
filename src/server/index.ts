@@ -4,4 +4,5 @@ import { api } from './api';
 const app = express();
 app.use(api);
 
-app.listen(3002, () => console.log("Server started"));
+// eslint-disable-next-line no-console
+app.listen(3002, () => console.log('Server started'));

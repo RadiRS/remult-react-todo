@@ -9,14 +9,14 @@ export const api = remultExpress({
   controllers: [TasksController],
   initApi: async () => {
     const taskRepo = remult.repo(Task);
-    if (await taskRepo.count() === 0) {
+    if ((await taskRepo.count()) === 0) {
       await taskRepo.insert([
-        { title: "Task a" },
-        { title: "Task b", completed: true },
-        { title: "Task c" },
-        { title: "Task d" },
-        { title: "Task e", completed: true }
+        { title: 'Task a' },
+        { title: 'Task b', completed: true },
+        { title: 'Task c' },
+        { title: 'Task d' },
+        { title: 'Task e', completed: true },
       ]);
     }
-  }
+  },
 });

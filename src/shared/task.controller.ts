@@ -7,7 +7,7 @@ export class TasksController {
     const taskRepo = remult.repo(Task);
 
     for (const task of await taskRepo.find()) {
-      await taskRepo.save({ ...task, completed })
+      await taskRepo.save({ ...task, completed });
     }
   }
 }
